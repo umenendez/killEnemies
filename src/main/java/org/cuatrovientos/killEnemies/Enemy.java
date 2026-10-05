@@ -7,10 +7,12 @@ public class Enemy implements Character {
 		// TODO Auto-generated method stub
 		return true;
 	}
-	
+
 	public void kill() {
 		System.out.println("¡¡Aaagghh, me mataste bastardo!!");
 		
 	}
+	
+	
 	
 }
