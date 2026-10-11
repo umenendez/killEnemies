@@ -19,6 +19,25 @@ public class App {
 
         Collections.shuffle(characters);
         System.out.println("¡Bienvenido, " + hero.getName() + "!");
-        System.out.println("Número de personajes: " + characters.size());
+        showCounts();
+        showCharacters();
+    }
+
+    static void showCounts() {
+        int friends = 0;
+        int enemies = 0;
+        for (Character character : characters) {
+            if (character.isEnemy()) enemies++;
+            else friends++;
+        }
+        System.out.println("Amigos: " + friends);
+        System.out.println("Enemigos: " + enemies);
+    }
+
+    static void showCharacters() {
+        for (int i = 0; i < characters.size(); i++) {
+            Character character = characters.get(i);
+            System.out.println(i + " - " + (character.isEnemy() ? "Enemigo" : "Amigo"));
+        }
     }
 }
