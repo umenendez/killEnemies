@@ -1,11 +1,12 @@
 package org.cuatrovientos.killEnemies;
 
 public class Friend implements Character {
+    @Override
+    public boolean isEnemy() {
+        return false;
+    }
 
-	@Override
-	public boolean isEnemy() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
+    public void heal() {
+        System.out.println("¡Te he curado!");
+    }
 }
