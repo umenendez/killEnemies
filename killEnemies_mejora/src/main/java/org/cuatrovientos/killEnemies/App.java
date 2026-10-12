@@ -1,5 +1,6 @@
 package org.cuatrovientos.killEnemies;
 
+import java.io.Console;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -31,6 +32,8 @@ public class App {
             }
             Collections.shuffle(characters);
         }
+        System.out.println("\n¡Bienvenido, " + hero.getName() + "!");
+        showCounts();
 
         while (true) {
             if (hero.getHealth() == 0) {
@@ -38,24 +41,21 @@ public class App {
                 saveGame(hero);
                 break;
             }
-
-            System.out.println("\n¡Bienvenido, " + hero.getName() + "!");
-            showCounts();
+            
             showCharacters();
             System.out.println("1. Atacar");
             System.out.println("2. Defender");
-            System.out.println("3. Recibir ataque");
-            System.out.println("4. Guardar y salir");
+            System.out.println("3. Guardar y salir");
             System.out.print("Elige una acción: ");
             int action = readInt(scanner);
 
-            if (action == 4) {
+            if (action == 3) {
                 saveGame(hero);
                 System.out.println("Partida guardada.");
                 break;
             }
 
-            if (action < 1 || action > 3) {
+            if (action < 1 || action > 2) {
                 System.out.println("Acción no válida.");
                 continue;
             }
@@ -83,12 +83,18 @@ public class App {
                     characters.add(target);
                     System.out.println("El enemigo se ha duplicado.");
                 }
-            } else if (action == 3) {
-                if (target instanceof Enemy) {
-                    hero.takeDamage(((Enemy) target).getDamage());
-                } else {
-                    System.out.println("Ese personaje no puede atacarte.");
+            }
+
+            ArrayList<Enemy> enemies = new ArrayList<>();
+            for (Character character : characters) {
+                if (character instanceof Enemy) {
+                    enemies.add((Enemy) character);
                 }
+            }
+            if (!enemies.isEmpty()) {
+                Enemy enemy = enemies.get((int) (Math.random() * enemies.size()));
+                System.out.println("El enemigo " + enemy.getType() + " te ataca.");
+                hero.takeDamage(enemy.getDamage());
             }
 
             saveGame(hero);
