@@ -36,12 +36,28 @@ public class App {
         System.out.println("1. Atacar");
         System.out.println("2. Defender");
         System.out.println("3. Guardar y salir");
+        System.out.println("4. Añadir amigo");
+        System.out.println("5. Añadir enemigo");
         System.out.print("Elige una acción: ");
         int action = readInt(scanner);
 
         if (action == 3) {
             saveGame(hero);
             System.out.println("Partida guardada.");
+            return;
+        }
+        if (action == 4) {
+            characters.add(new Friend());
+            saveGame(hero);
+            System.out.println("Amigo añadido.");
+            showCounts();
+            return;
+        }
+        if (action == 5) {
+            characters.add(new Enemy());
+            saveGame(hero);
+            System.out.println("Enemigo añadido.");
+            showCounts();
             return;
         }
 
