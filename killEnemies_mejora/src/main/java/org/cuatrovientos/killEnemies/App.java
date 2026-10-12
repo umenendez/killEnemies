@@ -91,6 +91,12 @@ public class App {
         try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(SAVE_FILE))) {
             loadedHero = (Hero) input.readObject();
             characters = (ArrayList<Character>) input.readObject();
+            for (Character character : characters) {
+                if (character instanceof Enemy && ((Enemy) character).getType() == null) {
+                    characters.clear();
+                    return false;
+                }
+            }
             return true;
         } catch (Exception e) {
             return false;
