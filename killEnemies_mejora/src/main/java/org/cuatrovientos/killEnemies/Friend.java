@@ -6,7 +6,7 @@ public class Friend implements Character {
         return false;
     }
 
-    public void heal() {
-        System.out.println("¡Te he curado!");
+    public void saved() {
+        System.out.println("¡¡Ahhhh muchas gracias, tenía mucho miedo!!");
     }
 }

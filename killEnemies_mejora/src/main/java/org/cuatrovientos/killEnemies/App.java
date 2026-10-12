@@ -78,7 +78,7 @@ public class App {
             } else if (action == 2) {
                 if (target instanceof Friend) {
                     hero.defend((Friend) target);
-                    ((Friend) target).heal();
+                    ((Friend) target).saved();
                 } else {
                     characters.add(target);
                     System.out.println("El enemigo se ha duplicado.");
