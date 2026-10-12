@@ -85,6 +85,7 @@ public class App {
         System.out.println("Enemigos derrotados: " + hero.getEnemiesKilled());
         System.out.println("Amigos defendidos: " + hero.getFriendsDefended());
         System.out.println("Vida del héroe: " + hero.getHealth());
+        System.out.println("Puntuación: " + hero.getScore());
     }
 
     static boolean loadGame() {
