@@ -25,7 +25,9 @@ public class App {
             hero = new Hero(scanner.nextLine());
             for (int i = 0; i < 5; i++) {
                 characters.add(new Friend());
-                characters.add(new Enemy());
+                characters.add(new Enemy("Normal", 20, 10));
+                characters.add(new Enemy("Fuerte", 40, 20));
+                characters.add(new Enemy("Jefe", 80, 30));
             }
             Collections.shuffle(characters);
         }
@@ -36,28 +38,12 @@ public class App {
         System.out.println("1. Atacar");
         System.out.println("2. Defender");
         System.out.println("3. Guardar y salir");
-        System.out.println("4. Añadir amigo");
-        System.out.println("5. Añadir enemigo");
         System.out.print("Elige una acción: ");
         int action = readInt(scanner);
 
         if (action == 3) {
             saveGame(hero);
             System.out.println("Partida guardada.");
-            return;
-        }
-        if (action == 4) {
-            characters.add(new Friend());
-            saveGame(hero);
-            System.out.println("Amigo añadido.");
-            showCounts();
-            return;
-        }
-        if (action == 5) {
-            characters.add(new Enemy());
-            saveGame(hero);
-            System.out.println("Enemigo añadido.");
-            showCounts();
             return;
         }
 
@@ -91,6 +77,7 @@ public class App {
         showCounts();
         System.out.println("Enemigos derrotados: " + hero.getEnemiesKilled());
         System.out.println("Amigos defendidos: " + hero.getFriendsDefended());
+        
     }
 
     static boolean loadGame() {
@@ -134,7 +121,12 @@ public class App {
     static void showCharacters() {
         for (int i = 0; i < characters.size(); i++) {
             Character character = characters.get(i);
-            System.out.println(i + " - " + (character.isEnemy() ? "Enemigo" : "Amigo"));
+            if (character instanceof Enemy) {
+                Enemy enemy = (Enemy) character;
+                System.out.println(i + " - Enemigo " + enemy.getType() + " (vida: " + enemy.getHealth() + ")");
+            } else {
+                System.out.println(i + " - Amigo");
+            }
         }
     }
 }
