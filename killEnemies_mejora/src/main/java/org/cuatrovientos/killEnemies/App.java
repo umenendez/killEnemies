@@ -32,25 +32,41 @@ public class App {
             Collections.shuffle(characters);
         }
 
-        System.out.println("¡Bienvenido, " + hero.getName() + "!");
-        showCounts();
-        showCharacters();
-        System.out.println("1. Atacar");
-        System.out.println("2. Defender");
-        System.out.println("3. Recibir ataque");
-        System.out.println("4. Guardar y salir");
-        System.out.print("Elige una acción: ");
-        int action = readInt(scanner);
+        while (true) {
+            if (hero.getHealth() == 0) {
+                System.out.println("Fin de la partida.");
+                saveGame(hero);
+                break;
+            }
 
-        if (action == 4) {
-            saveGame(hero);
-            System.out.println("Partida guardada.");
-            return;
-        }
+            System.out.println("\n¡Bienvenido, " + hero.getName() + "!");
+            showCounts();
+            showCharacters();
+            System.out.println("1. Atacar");
+            System.out.println("2. Defender");
+            System.out.println("3. Recibir ataque");
+            System.out.println("4. Guardar y salir");
+            System.out.print("Elige una acción: ");
+            int action = readInt(scanner);
 
-        System.out.print("Índice del personaje: ");
-        int index = readInt(scanner);
-        if (index >= 0 && index < characters.size()) {
+            if (action == 4) {
+                saveGame(hero);
+                System.out.println("Partida guardada.");
+                break;
+            }
+
+            if (action < 1 || action > 3) {
+                System.out.println("Acción no válida.");
+                continue;
+            }
+
+            System.out.print("Índice del personaje: ");
+            int index = readInt(scanner);
+            if (index < 0 || index >= characters.size()) {
+                System.out.println("Índice no válido.");
+                continue;
+            }
+
             Character target = characters.get(index);
             if (action == 1) {
                 if (target instanceof Enemy) {
@@ -73,20 +89,17 @@ public class App {
                 } else {
                     System.out.println("Ese personaje no puede atacarte.");
                 }
-            } else {
-                System.out.println("Acción no válida.");
             }
-        } else {
-            System.out.println("Índice no válido.");
-        }
 
-        saveGame(hero);
-        showCounts();
-        System.out.println("Enemigos derrotados: " + hero.getEnemiesKilled());
-        System.out.println("Amigos defendidos: " + hero.getFriendsDefended());
-        System.out.println("Vida del héroe: " + hero.getHealth());
-        System.out.println("Puntuación: " + hero.getScore());
+            saveGame(hero);
+            showCounts();
+            System.out.println("Enemigos derrotados: " + hero.getEnemiesKilled());
+            System.out.println("Amigos defendidos: " + hero.getFriendsDefended());
+            System.out.println("Vida del héroe: " + hero.getHealth());
+            System.out.println("Puntuación: " + hero.getScore());
+        }
     }
+
 
     static boolean loadGame() {
         try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(SAVE_FILE))) {
