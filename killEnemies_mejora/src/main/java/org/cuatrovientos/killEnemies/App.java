@@ -37,11 +37,12 @@ public class App {
         showCharacters();
         System.out.println("1. Atacar");
         System.out.println("2. Defender");
-        System.out.println("3. Guardar y salir");
+        System.out.println("3. Recibir ataque");
+        System.out.println("4. Guardar y salir");
         System.out.print("Elige una acción: ");
         int action = readInt(scanner);
 
-        if (action == 3) {
+        if (action == 4) {
             saveGame(hero);
             System.out.println("Partida guardada.");
             return;
@@ -66,6 +67,12 @@ public class App {
                     characters.add(target);
                     System.out.println("El enemigo se ha duplicado.");
                 }
+            } else if (action == 3) {
+                if (target instanceof Enemy) {
+                    hero.takeDamage(((Enemy) target).getDamage());
+                } else {
+                    System.out.println("Ese personaje no puede atacarte.");
+                }
             } else {
                 System.out.println("Acción no válida.");
             }
@@ -77,7 +84,7 @@ public class App {
         showCounts();
         System.out.println("Enemigos derrotados: " + hero.getEnemiesKilled());
         System.out.println("Amigos defendidos: " + hero.getFriendsDefended());
-        
+        System.out.println("Vida del héroe: " + hero.getHealth());
     }
 
     static boolean loadGame() {
